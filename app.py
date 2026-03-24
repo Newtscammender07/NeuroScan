@@ -1,9 +1,16 @@
 import streamlit as st
 import numpy as np
 import os
+import sys
 import joblib
 import pandas as pd
 import matplotlib.pyplot as plt
+from pathlib import Path
+
+# Fix for Streamlit Cloud: Ensure local 'src' is discoverable
+curr_dir = Path(__file__).parent if "__file__" in locals() else Path.cwd()
+if str(curr_dir) not in sys.path:
+    sys.path.append(str(curr_dir))
 
 # Custom modules
 from src.preprocessing import baseline_correction
