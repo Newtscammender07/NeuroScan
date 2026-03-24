@@ -1,11 +1,23 @@
+import sys
 import os
+from pathlib import Path
+
+# Add src to path for prefix-less imports (better for pickle compatibility)
+ROOT_DIR = Path(__file__).parent.absolute()
+SRC_PATH = str(ROOT_DIR / "src")
+if SRC_PATH not in sys.path:
+    sys.path.insert(0, SRC_PATH)
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
 import joblib
 from sklearn.model_selection import train_test_split
-from src.data_loader import load_real_eeg_data
-from src.preprocessing import baseline_correction
-from src.feature_extraction import extract_features
-from src.pca_optimizer import PCAOptimizer
-from src.classifier import train_svm, evaluate_model
+# Direct imports (without src. prefix) ensure models are saved with cleaner references
+from data_loader import load_real_eeg_data
+from preprocessing import baseline_correction
+from feature_extraction import extract_features
+from pca_optimizer import PCAOptimizer
+from classifier import train_svm, evaluate_model
 
 def main():
     print("--- Machine Learning Framework for Schizophrenia Detection ---")
