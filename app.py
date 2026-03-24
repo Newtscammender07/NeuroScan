@@ -9,12 +9,19 @@ from pathlib import Path
 
 # Fix for Streamlit Cloud: Ensure local 'src' is discoverable
 ROOT_DIR = Path(__file__).parent.absolute()
+SRC_PATH = str(ROOT_DIR / "src")
+if SRC_PATH not in sys.path:
+    sys.path.insert(0, SRC_PATH)
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
-# Custom modules
-from src.preprocessing import baseline_correction
-from src.feature_extraction import extract_features
+# Custom modules (Direct imports for better deployment compatibility)
+try:
+    from preprocessing import baseline_correction
+    from feature_extraction import extract_features
+except ImportError:
+    from src.preprocessing import baseline_correction
+    from src.feature_extraction import extract_features
 
 # Constants for real data
 SFREQ = 128
