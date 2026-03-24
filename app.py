@@ -19,6 +19,13 @@ if str(ROOT_DIR) not in sys.path:
 try:
     from preprocessing import baseline_correction
     from feature_extraction import extract_features
+    # Remap modules for unpickling compatibility if 'src' doesn't exist as a package
+    import preprocessing as _pre
+    import feature_extraction as _feat
+    import pca_optimizer as _pca
+    sys.modules['src.preprocessing'] = _pre
+    sys.modules['src.feature_extraction'] = _feat
+    sys.modules['src.pca_optimizer'] = _pca
 except ImportError:
     from src.preprocessing import baseline_correction
     from src.feature_extraction import extract_features
