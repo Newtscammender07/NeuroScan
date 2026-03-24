@@ -118,14 +118,24 @@ st.markdown("""
 
 # Load Models
 def load_models():
-    model_path = 'models/svm_model.pkl'
-    pca_path = 'models/pca_optimizer.pkl'
+    # Search in both 'models/' folder and root for compatibility
+    model_paths = [os.path.join('models', 'svm_model.pkl'), 'svm_model.pkl']
+    pca_paths = [os.path.join('models', 'pca_optimizer.pkl'), 'pca_optimizer.pkl']
     
-    if os.path.exists(model_path) and os.path.exists(pca_path):
-        model = joblib.load(model_path)
-        pca = joblib.load(pca_path)
-        return model, pca
-    return None, None
+    model = None
+    pca = None
+    
+    for p in model_paths:
+        if os.path.exists(p):
+            model = joblib.load(p)
+            break
+            
+    for p in pca_paths:
+        if os.path.exists(p):
+            pca = joblib.load(p)
+            break
+            
+    return model, pca
 
 model, pca = load_models()
 
