@@ -8,9 +8,9 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 
 # Fix for Streamlit Cloud: Ensure local 'src' is discoverable
-curr_dir = Path(__file__).parent if "__file__" in locals() else Path.cwd()
-if str(curr_dir) not in sys.path:
-    sys.path.append(str(curr_dir))
+ROOT_DIR = Path(__file__).parent.absolute()
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
 
 # Custom modules
 from src.preprocessing import baseline_correction
